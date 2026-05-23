@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Reset Motion</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 
   :root {
@@ -36,7 +38,6 @@
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
-    
   }
 
   /* ══ FILM GRAIN overlay ══ */
@@ -605,7 +606,7 @@
                 box-shadow 0.38s ease,
                 border-color 0.3s ease,
                 background 0.3s ease;
-    cursor: none;
+    cursor: pointer;
     transform: scale(0.97) translateY(0px);
     transform-origin: center bottom;
     will-change: transform;
@@ -730,13 +731,20 @@
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pc-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     width: 220px; height: 390px;
     left: 50%; top: 50%;
-    margin-left: -110px; margin-top: -195px;
+    margin-left: -110px; margin-top: -195px; /* Locked perfectly to center */
+    transform-origin: center center;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(155,93,229,0.15);
@@ -752,16 +760,19 @@
                 border-color 0.4s ease;
   }
 
-  .pc-card:not(.pc-active) { opacity: 0.72; }
+  .pc-card:not(.pc-active) { 
+    opacity: 0.72; 
+    filter: brightness(0.45) blur(1px);
+  }
   .pc-card:not(.pc-active):hover { opacity: 0.88; }
 
   .pc-card.pc-active {
-    width: 240px; height: 420px;
-    margin-left: -120px; margin-top: -210px;
+    width: 250px; height: 430px;
+    margin-left: -125px; margin-top: -215px; /* Locked perfectly to center */
     filter: none !important;
     opacity: 1;
-    border-color: rgba(155,93,229,0.55);
-    box-shadow: 0 0 50px rgba(155,93,229,0.25), 0 24px 60px rgba(0,0,0,0.5);
+    border-color: rgba(218, 79, 146, 0.55);
+    box-shadow: 0 0 50px rgba(56, 183, 126, 0.25), 0 24px 60px rgba(0,0,0,0.5);
     z-index: 10;
   }
 
@@ -836,13 +847,16 @@
     #portfolio { padding: 80px 16px; }
     .portfolio-carousel { height: 480px; perspective: 800px; }
     .portfolio-carousel::before { width: 500px; height: 500px; }
+    
+    /* Perfect mobile centering margins */
     .pc-card { width: 180px; height: 320px; margin-left: -90px; margin-top: -160px; }
+    .pc-card.pc-active { width: 200px; height: 360px; margin-left: -100px; margin-top: -180px; }
+    
     .pc-arrow { width: 38px; height: 38px; font-size: 15px; }
     .pc-arrow-left  { left: 4px; }
     .pc-arrow-right { right: 4px; }
   }
 
-  
   /* ══ PRICING ══ */
   #pricing { padding:140px 60px; background:var(--black); position:relative; overflow:hidden; }
   #pricing::before { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(to right,transparent,var(--purple),transparent); opacity:0.3; }
@@ -851,7 +865,7 @@
   .pricing-card {
     background:var(--glass); backdrop-filter:blur(16px) saturate(160%);
     border:1px solid var(--glass-border); padding:52px 40px; position:relative;
-    transition:all .5s cubic-bezier(0.16,1,0.3,1); cursor:none; overflow:hidden; border-radius:2px; transform-style:preserve-3d;
+    transition:all .5s cubic-bezier(0.16,1,0.3,1); cursor:pointer; overflow:hidden; border-radius:2px; transform-style:preserve-3d;
   }
   .pricing-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(155,93,229,0.06),transparent 60%); pointer-events:none; }
   .pricing-card:hover { border-color:rgba(155,93,229,0.4); transform:translateY(-12px) rotateX(2deg); box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(155,93,229,0.15),inset 0 1px 0 rgba(255,255,255,0.06); z-index:2; }
@@ -914,7 +928,7 @@
   .scarcity-spots { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--purple-light); white-space:nowrap; }
   .pricing-faq { margin-top:100px; }
   .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:60px; }
-  .faq-item { background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--glass-border); padding:32px 40px; cursor:none; transition:all .3s; position:relative; overflow:hidden; }
+  .faq-item { background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--glass-border); padding:32px 40px; cursor:pointer; transition:all .3s; position:relative; overflow:hidden; }
   .faq-item:hover { border-color:rgba(155,93,229,0.3); transform:translateY(-2px); box-shadow:0 12px 30px rgba(155,93,229,0.08); }
   .faq-item::before { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(to right,var(--purple),transparent); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
   .faq-item:hover::before { transform:scaleX(1); }
@@ -940,7 +954,7 @@
   .footer-copy { font-size:11px; color:var(--gray); letter-spacing:1px; }
 
   /* ══ SCROLL TO TOP ══ */
-  .scroll-top { position:fixed; bottom:32px; right:32px; z-index:400; width:48px; height:48px; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center; cursor:none; transition:all .3s; opacity:0; pointer-events:none; color:var(--purple-light); font-size:18px; text-decoration:none; }
+  .scroll-top { position:fixed; bottom:32px; right:32px; z-index:400; width:48px; height:48px; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .3s; opacity:0; pointer-events:none; color:var(--purple-light); font-size:18px; text-decoration:none; }
   .scroll-top.visible { opacity:1; pointer-events:all; }
   .scroll-top:hover { background:var(--purple); border-color:var(--purple); color:var(--white); transform:translateY(-4px); box-shadow:0 8px 24px rgba(155,93,229,0.4); }
 
@@ -970,7 +984,6 @@
     #services, #portfolio, #pricing, #contact, #process { padding:80px 24px; }
     .editor-section { padding:60px 24px; }
     .services-grid { grid-template-columns:1fr; gap:16px; }
-    .pc-card { aspect-ratio:9/14; }
     .pricing-grid { grid-template-columns:1fr; }
     .pricing-card.featured { transform:none; }
     .risk-reversal { grid-template-columns:1fr; }
@@ -1150,7 +1163,7 @@
 
   .mb-lid {
     position: absolute;
-    bottom: 0;                              /* grows upward from hinge */
+    bottom: 0;                                      /* grows upward from hinge */
     left: clamp(-6px,-1vw,-3px); right: clamp(-6px,-1vw,-3px);
     height: clamp(165px, 26vw, 330px);
     background: linear-gradient(170deg, #30303a 0%, #1f1f28 50%, #16161e 100%);
@@ -1362,7 +1375,6 @@
 </style>
 </head>
 <body>
-<!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="section-header reveal">
     <div>
@@ -1372,7 +1384,6 @@
     <p class="section-sub">A curated selection of our best edits across coaches, businesses and entrepreneurs.</p>
   </div>
 
-  <!-- Carousel -->
   <div class="portfolio-carousel-wrap reveal">
     <button class="pc-arrow pc-arrow-left" id="pcPrev" aria-label="Previous">&#8592;</button>
     <div class="portfolio-carousel" id="portfolioCarousel">
@@ -1380,42 +1391,42 @@
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/mrelyEIdLhA?autoplay=1&mute=1&loop=1&playlist=mrelyEIdLhA&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/mrelyEIdLhA?mute=1&loop=1&playlist=mrelyEIdLhA&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Creative Ad Reel</h4><p>High Converting Ad Creatives</p></div>
         </div>
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/9wU_L8JhBmg?autoplay=1&mute=1&loop=1&playlist=9wU_L8JhBmg&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/9wU_L8JhBmg?mute=1&loop=1&playlist=9wU_L8JhBmg&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Business Ad Reel</h4><p>Ads That Bring Clients</p></div>
         </div>
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/RCscLcIHgtU?autoplay=1&mute=1&loop=1&playlist=RCscLcIHgtU&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/RCscLcIHgtU?mute=1&loop=1&playlist=RCscLcIHgtU&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Personal Branding</h4><p>Build Your Brand Identity</p></div>
         </div>
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/_G07XaAK6r0?autoplay=1&mute=1&loop=1&playlist=_G07XaAK6r0&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/_G07XaAK6r0?mute=1&loop=1&playlist=_G07XaAK6r0&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Coaches</h4><p>Content That Grows Your Audience</p></div>
         </div>
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/F9Nf60jUqhc?autoplay=1&mute=1&loop=1&playlist=F9Nf60jUqhc&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/F9Nf60jUqhc?mute=1&loop=1&playlist=F9Nf60jUqhc&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Creative Reel</h4><p>Viral Content</p></div>
         </div>
 
         <div class="pc-card">
           <div class="pc-video-wrap">
-            <iframe src="https://www.youtube.com/embed/sg2T7kUgFkQ?autoplay=1&mute=1&loop=1&playlist=sg2T7kUgFkQ&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
+            <iframe src="https://www.youtube.com/embed/sg2T7kUgFkQ?mute=1&loop=1&playlist=sg2T7kUgFkQ&controls=0&showinfo=0&rel=0" allowfullscreen ></iframe>
           </div>
           <div class="pc-info"><h4>Motion Designing</h4><p>Dynamic Visual Effects</p></div>
         </div>
@@ -1424,7 +1435,6 @@
     </div>
     <button class="pc-arrow pc-arrow-right" id="pcNext" aria-label="Next">&#8594;</button>
 
-    <!-- Dots -->
     <div class="pc-dots" id="pcDots"></div>
   </div>
 </section>
@@ -1545,7 +1555,6 @@
   }
 
   if(mbScene) {
-      // (All the complex Macbook 3D math remains safe inside this check)
       let rotY = -22, rotX = 0, velY = 0, velX = 0, isDragging = false;
       let lastX = 0, lastY = 0, rafId;
       
@@ -1553,9 +1562,6 @@
         if(mbDragRing) mbDragRing.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
       }
       applyRotation();
-      
-      // Removed the auto-rotation/momentum code here to keep snippet concise, 
-      // but it safely wraps inside this if(mbScene) block if you bring it back!
   }
 
   // ══ PORTFOLIO — 360° ORBITAL CAROUSEL ══
@@ -1573,9 +1579,6 @@
     const total = cards.length;
     let current = 0;
     let autoTimer = null;
-    
-    // FIX: Declare these using let, don't calculate them statically yet
-    let RX, RY;
 
     cards.forEach((_, i) => {
       const d = document.createElement('button');
@@ -1586,25 +1589,39 @@
     });
 
     function positionCards(activeIdx) {
-      // FIX: Dynamically calculate size every time it moves or resizes
-      RX = window.innerWidth < 900 ? 180 : 320;
-      RY = window.innerWidth < 900 ? 60 : 90;
+      // Adjust spacing between cards based on screen size
+      const spacingX = window.innerWidth < 900 ? 170 : 280;
 
       cards.forEach((card, i) => {
-        const offset = i - activeIdx;
-        const angleDeg = (offset / total) * 360 - 90;
-        const angleRad = angleDeg * Math.PI / 180;
-        const x = Math.sin(angleRad) * RX;
-        const z = Math.cos(angleRad) * RY;
-        const scale = 0.7 + 0.3 * ((z + RY) / (2 * RY));
-        const brightness = 0.4 + 0.6 * ((z + RY) / (2 * RY));
-        const isActive = i === activeIdx;
+        let offset = i - activeIdx;
 
-        card.classList.toggle('pc-active', isActive);
-        card.style.transform = `translate3d(${x}px,0,${z}px) scale(${isActive ? 1 : scale})`;
-        card.style.filter    = isActive ? 'none' : `brightness(${(brightness * 0.6).toFixed(2)})`;
-        card.style.opacity   = isActive ? '1' : Math.max(0.4, brightness * 0.82).toFixed(2);
-        card.style.zIndex    = isActive ? '10' : Math.round((z + RY) * 5);
+        // Circular wrapping
+        if (offset > total / 2) offset -= total;
+        if (offset < -total / 2) offset += total;
+
+        const absOffset = Math.abs(offset);
+
+        // ONLY SHOW 3 CARDS
+        if (absOffset > 1) {
+            card.style.opacity = "0";
+            card.style.pointerEvents = "none";
+            card.style.transform = `translate3d(0px, 0px, -500px) scale(0.6)`;
+            return;
+        }
+
+        const x = offset * spacingX;
+        const z = absOffset === 0 ? 0 : -120;
+        
+        const scale = absOffset === 0 ? 1 : 0.82;
+
+        card.classList.toggle('pc-active', absOffset === 0);
+
+        // Force exactly on the horizontal line (0px on the Y axis)
+        card.style.transform = `translate3d(${x}px, 0px, ${z}px) scale(${scale})`;
+
+        card.style.opacity = absOffset === 0 ? "1" : "0.55";
+        card.style.zIndex = absOffset === 0 ? "10" : "5";
+        card.style.pointerEvents = absOffset === 0 ? "auto" : "none";
       });
 
       dotsEl.querySelectorAll('.pc-dot').forEach((d, i) =>
