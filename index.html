@@ -1998,11 +1998,28 @@
   let lastX = 0,  lastY = 0;
   let dragMoved = false;
   let rafId;
+  let autoRotating = true;
+  let autoRotRaf;
 
   function applyRotation() {
     mbDragRing.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
   }
   applyRotation();
+
+  // ── Auto-rotation loop ──────────────────────
+  let lastAutoTime = null;
+  function autoRotateLoop(ts) {
+    if (!autoRotating || isDragging) return;
+    if (lastAutoTime === null) lastAutoTime = ts;
+    const dt = (ts - lastAutoTime) / 1000;
+    lastAutoTime = ts;
+    rotY += 22 * dt; // ~22 degrees/sec — one full turn every ~16s
+    // Gentle bob on X
+    rotX = Math.sin(ts / 3000) * 5;
+    applyRotation();
+    autoRotRaf = requestAnimationFrame(autoRotateLoop);
+  }
+  autoRotRaf = requestAnimationFrame(autoRotateLoop);
 
   function momentumLoop() {
     if (isDragging) return;
@@ -2012,12 +2029,19 @@
     applyRotation();
     if (Math.abs(velY) > 0.04 || Math.abs(velX) > 0.04) {
       rafId = requestAnimationFrame(momentumLoop);
+    } else {
+      // Resume auto-rotate after momentum dies
+      autoRotating = true;
+      lastAutoTime = null;
+      autoRotRaf = requestAnimationFrame(autoRotateLoop);
     }
   }
 
   function onDown(e) {
     if (e.target === mbScreen || mbScreen.contains(e.target)) return;
     isDragging = true; dragMoved = false;
+    autoRotating = false;
+    cancelAnimationFrame(autoRotRaf);
     lastX = e.touches ? e.touches[0].clientX : e.clientX;
     lastY = e.touches ? e.touches[0].clientY : e.clientY;
     velY = 0; velX = 0;
@@ -2061,6 +2085,8 @@
     zooming = true;
 
     cancelAnimationFrame(rafId);
+    autoRotating = false;
+    cancelAnimationFrame(autoRotRaf);
     mbFloatWrap.classList.add('no-float');
 
     const laptopTilt = document.querySelector('.mb-laptop-tilt');
